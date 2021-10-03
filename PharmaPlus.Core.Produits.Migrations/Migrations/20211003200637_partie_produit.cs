@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PharmaPlus.Core.Produits.Migrations.Migrations
 {
-    public partial class AddIdentity1 : Migration
+    public partial class partie_produit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,60 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Laboratoire",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomLabo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdresseLabo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Laboratoire", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lot",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    remarque = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lot", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Molecule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomMolecule = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Molecule", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Picture",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Picture", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +206,54 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Produit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomCommercial = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DatePeremption = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PrixAchat = table.Column<double>(type: "float", nullable: false),
+                    PrixVente = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrixPpa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdMolecule = table.Column<int>(type: "int", nullable: false),
+                    MoleculeId = table.Column<int>(type: "int", nullable: true),
+                    IdLot = table.Column<int>(type: "int", nullable: false),
+                    LotId = table.Column<int>(type: "int", nullable: true),
+                    IdLabo = table.Column<int>(type: "int", nullable: false),
+                    LaboId = table.Column<int>(type: "int", nullable: true),
+                    PictureId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produit", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Produit_Laboratoire_LaboId",
+                        column: x => x.LaboId,
+                        principalTable: "Laboratoire",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Produit_Lot_LotId",
+                        column: x => x.LotId,
+                        principalTable: "Lot",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Produit_Molecule_MoleculeId",
+                        column: x => x.MoleculeId,
+                        principalTable: "Molecule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Produit_Picture_PictureId",
+                        column: x => x.PictureId,
+                        principalTable: "Picture",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +292,26 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produit_LaboId",
+                table: "Produit",
+                column: "LaboId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produit_LotId",
+                table: "Produit",
+                column: "LotId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produit_MoleculeId",
+                table: "Produit",
+                column: "MoleculeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produit_PictureId",
+                table: "Produit",
+                column: "PictureId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +332,25 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Produit");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Laboratoire");
+
+            migrationBuilder.DropTable(
+                name: "Lot");
+
+            migrationBuilder.DropTable(
+                name: "Molecule");
+
+            migrationBuilder.DropTable(
+                name: "Picture");
         }
     }
 }

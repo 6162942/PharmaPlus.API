@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,19 +18,23 @@ namespace PharmaPlus.Core.Produits.Domain
     {
         #region Properties
         public int Id { get; set; }
-        public int Drug_code { get; set; }
-        public string Class_name { get; set; }
-        public int Drug_identification_number { get; set; }
-        public string Brand_name { get; set; }
-        public string Descriptor { get; set; }
-        public int Number_of_ais { get; set; }
-        public int Ai_group_no { get; set; }
-        public string Company_name { get; set; }
-        public DateTime Last_update_date { get; set; }
-        public decimal Purchase_price { get; set; }
-        public decimal Sell_price { get; set; }
-        public decimal Ppa { get; set; }
-        public DateTime Expiry_date { get; set; }
+        [Required]
+        public string NomCommercial { get; set; }
+        [Required]
+        public DateTime DatePeremption { get; set; }
+        [Required]
+        public double PrixAchat { get; set; }
+        [Required]
+        public string PrixVente { get; set; }
+        [Required]
+        public string PrixPpa { get; set; }
+        public int IdMolecule { get; set; }
+        public Molecule Molecule { get; set; }
+        public int IdLot { get; set; }
+        public Lot Lot { get; set; }
+        public int IdLabo { get; set; }
+        public Laboratoire Labo { get; set; }
+
         public int PictureId { get; set; }
         public Picture Picture { get; set; }
 

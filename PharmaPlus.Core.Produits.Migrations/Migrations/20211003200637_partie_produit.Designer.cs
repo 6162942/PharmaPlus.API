@@ -10,8 +10,8 @@ using PharmaPlus.Core.Produits.Infrastructures.Data;
 namespace PharmaPlus.Core.Produits.Migrations.Migrations
 {
     [DbContext(typeof(ProduitsContext))]
-    [Migration("20210927023443_AddIdentity1")]
-    partial class AddIdentity1
+    [Migration("20211003200637_partie_produit")]
+    partial class partie_produit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,6 +217,58 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PharmaPlus.Core.Produits.Domain.Laboratoire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdresseLabo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomLabo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Laboratoire");
+                });
+
+            modelBuilder.Entity("PharmaPlus.Core.Produits.Domain.Lot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("remarque")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lot");
+                });
+
+            modelBuilder.Entity("PharmaPlus.Core.Produits.Domain.Molecule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NomMolecule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Molecule");
+                });
+
             modelBuilder.Entity("PharmaPlus.Core.Produits.Domain.Picture", b =>
                 {
                     b.Property<int>("Id")
@@ -239,49 +291,52 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Ai_group_no")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Brand_name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Class_name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Descriptor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Drug_code")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Drug_identification_number")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Expiry_date")
+                    b.Property<DateTime>("DatePeremption")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Last_update_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Number_of_ais")
+                    b.Property<int>("IdLabo")
                         .HasColumnType("int");
+
+                    b.Property<int>("IdLot")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMolecule")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LaboId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LotId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MoleculeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomCommercial")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PictureId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Ppa")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("PrixAchat")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("Purchase_price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("PrixPpa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Sell_price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("PrixVente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LaboId");
+
+                    b.HasIndex("LotId");
+
+                    b.HasIndex("MoleculeId");
 
                     b.HasIndex("PictureId");
 
@@ -341,11 +396,29 @@ namespace PharmaPlus.Core.Produits.Migrations.Migrations
 
             modelBuilder.Entity("PharmaPlus.Core.Produits.Domain.Produit", b =>
                 {
+                    b.HasOne("PharmaPlus.Core.Produits.Domain.Laboratoire", "Labo")
+                        .WithMany()
+                        .HasForeignKey("LaboId");
+
+                    b.HasOne("PharmaPlus.Core.Produits.Domain.Lot", "Lot")
+                        .WithMany()
+                        .HasForeignKey("LotId");
+
+                    b.HasOne("PharmaPlus.Core.Produits.Domain.Molecule", "Molecule")
+                        .WithMany()
+                        .HasForeignKey("MoleculeId");
+
                     b.HasOne("PharmaPlus.Core.Produits.Domain.Picture", "Picture")
                         .WithMany("Produits")
                         .HasForeignKey("PictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Labo");
+
+                    b.Navigation("Lot");
+
+                    b.Navigation("Molecule");
 
                     b.Navigation("Picture");
                 });

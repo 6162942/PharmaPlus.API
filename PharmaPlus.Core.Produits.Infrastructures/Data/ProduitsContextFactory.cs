@@ -26,7 +26,7 @@ namespace PharmaPlus.Core.Produits.Infrastructures.Data
             ConfigurationBuilder configurationbuilder = new ConfigurationBuilder();
 
             //configurationbuilder.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "Settings", "appsettings.json"));
-            configurationbuilder.AddJsonFile(Path.Combine(@"C:\Users\atjal\source\repos\PharmaPlus.API\PharmaPlus.Core.Produits.Infrastructures\Settings\appsettings.json"));
+            configurationbuilder.AddJsonFile(Path.Combine(@"C:\Formation AEC Analyste Programmeur\Cours\Session 05\420-A21 Projet\code\PharmaPlus.API\PharmaPlus.Core.Produits.Infrastructures\Settings\appsettings.json"));
 
             IConfigurationRoot configurationRoot = configurationbuilder.Build();
 

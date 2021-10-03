@@ -25,12 +25,18 @@ namespace PharmaPlus.Core.Produits.Infrastructures.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ProduitEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PictureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LotEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LaboratoireEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MoleculeEntityTypeConfiguration());
         }
         #endregion
         #region Properties
         public DbSet<Produit> Produits { get; set; }
-
+        public DbSet<Molecule> Molecules { get; set; }
+        public DbSet<Lot> Lots { get; set; }
+        public DbSet<Laboratoire> Laboratoires { get; set; }
         public DbSet<Picture> Pictures { get; set; }
+
         #endregion
     }
 }
