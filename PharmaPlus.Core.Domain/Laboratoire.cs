@@ -13,6 +13,8 @@ namespace PharmaPlus.Core.Produits.Domain
         public string NomLabo { get; set; }
         public string AdresseLabo { get; set; }
 
+        public List<Produit> Produit { get; set; }
+
         #endregion
     }
 }

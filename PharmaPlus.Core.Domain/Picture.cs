@@ -12,6 +12,8 @@ namespace PharmaPlus.Core.Produits.Domain
         public int Id { get; set; }
         public string Url { get; set; }
         public List<Produit> Produits { get; set; }
+
+        public List<Composition_commandeAchat> Composition_commandeAchats { get; set; }
         #endregion
     }
 }

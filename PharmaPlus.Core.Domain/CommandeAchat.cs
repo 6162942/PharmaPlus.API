@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace PharmaPlus.Core.Produits.Domain
 {
-    public class Molecule
+    public class CommandeAchat
     {
         #region Properties
         public int Id { get; set; }
         [Required]
-        public string NomMolecule { get; set; }
+        public DateTime Date { get; set; }
+        public int EmployeRHId { get; set; }
+        public Employe EmployeRH { get; set; }
 
-        public List<Produit> Produit { get; set; }
+        public List<Composition_commande> Composition_commandes { get; set; }
         #endregion
     }
 }

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PharmaPlus.Core.Produits.Domain
 {
-    public class Molecule
+    public class Transaction
     {
         #region Properties
-        public int Id { get; set; }
-        [Required]
-        public string NomMolecule { get; set; }
+        public int EmployeId { get; set; }
+        public Employe Employe { get; set; }
+        public int CommandeId { get; set; }
+        public Commande Commande { get; set; }
 
-        public List<Produit> Produit { get; set; }
         #endregion
     }
 }

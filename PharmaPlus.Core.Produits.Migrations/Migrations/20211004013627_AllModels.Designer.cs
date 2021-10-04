@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaPlus.Core.Produits.Infrastructures.Data;
 
 namespace PharmaPlus.Core.Produits.Migrations.Migrations
 {
     [DbContext(typeof(ProduitsContext))]
-    partial class ProduitsContextModelSnapshot : ModelSnapshot
+    [Migration("20211004013627_AllModels")]
+    partial class AllModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

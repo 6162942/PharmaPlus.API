@@ -28,16 +28,16 @@ namespace PharmaPlus.Core.Produits.Domain
         public string PrixVente { get; set; }
         [Required]
         public string PrixPpa { get; set; }
-        public int IdMolecule { get; set; }
+        public int MoleculeId { get; set; }
         public Molecule Molecule { get; set; }
-        public int IdLot { get; set; }
+        public int LotId { get; set; }
         public Lot Lot { get; set; }
-        public int IdLabo { get; set; }
+        public int LaboId { get; set; }
         public Laboratoire Labo { get; set; }
-
         public int PictureId { get; set; }
         public Picture Picture { get; set; }
 
+        public List<Composition_commande> Composition_commandes { get; set; }
         #endregion
     }
 }
