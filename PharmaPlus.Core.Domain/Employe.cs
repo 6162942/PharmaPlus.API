@@ -14,6 +14,8 @@ namespace PharmaPlus.Core.Produits.Domain
         [Required]
         public string NomEmploye { get; set; }
         [Required]
+        public string Courriel { get; set; }
+        [Required]
         public string PrenomEmploye { get; set; }
         public string NumTelePers { get; set; }
         public int NumTeleProf { get; set; }
