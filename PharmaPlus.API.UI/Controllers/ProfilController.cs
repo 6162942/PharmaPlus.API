@@ -12,28 +12,28 @@ namespace PharmaPlus.API.UI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmployeController : ControllerBase
+    public class ProfilController : ControllerBase
     {
 
         private readonly ProduitsContext _context;
 
-        public EmployeController(ProduitsContext context)
+        public ProfilController(ProduitsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employes
+        // GET: api/Profils
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employe>>> GetDCandidates()
+        public async Task<ActionResult<IEnumerable<Profil>>> GetDCandidates()
         {
-            return await _context.Employes.ToListAsync();
+            return await _context.Profils.ToListAsync();
         }
 
-        // GET: api/Employes/5
+        // GET: api/Profils/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employe>> GetDCandidate(int id)
+        public async Task<ActionResult<Profil>> GetDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Profils.FindAsync(id);
 
             if (dCandidate == null)
             {
@@ -43,19 +43,19 @@ namespace PharmaPlus.API.UI.Controllers
             return dCandidate;
         }
 
-        // PUT: api/Employes/5
+        // PUT: api/Profils/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDCandidate(int id, Employe Employe)
+        public async Task<IActionResult> PutDCandidate(int id, Profil Profil)
         {
             /* if (id != dCandidate.id)
              {
                  return BadRequest();
              }*/
-            Employe.Id = id;
+            Profil.Id = id;
 
-            _context.Entry(Employe).State = EntityState.Modified;
+            _context.Entry(Profil).State = EntityState.Modified;
 
             try
             {
@@ -80,25 +80,25 @@ namespace PharmaPlus.API.UI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Employe>> PostDCandidate(Employe Employe)
+        public async Task<ActionResult<Profil>> PostDCandidate(Profil Profil)
         {
-            _context.Employes.Add(Employe);
+            _context.Profils.Add(Profil);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDCandidate", new { id = Employe.Id }, Employe);
+            return CreatedAtAction("GetDCandidate", new { id = Profil.Id }, Profil);
         }
 
         // DELETE: api/DCandidates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Employe>> DeleteDCandidate(int id)
+        public async Task<ActionResult<Profil>> DeleteDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Profils.FindAsync(id);
             if (dCandidate == null)
             {
                 return NotFound();
             }
 
-            _context.Employes.Remove(dCandidate);
+            _context.Profils.Remove(dCandidate);
             await _context.SaveChangesAsync();
 
             return dCandidate;
@@ -106,7 +106,7 @@ namespace PharmaPlus.API.UI.Controllers
 
         private bool DCandidateExists(int id)
         {
-            return _context.Employes.Any(e => e.Id == id);
+            return _context.Profils.Any(e => e.Id == id);
         }
 
     }

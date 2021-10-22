@@ -12,28 +12,28 @@ namespace PharmaPlus.API.UI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmployeController : ControllerBase
+    public class Composition_commandeAchatController : ControllerBase
     {
 
         private readonly ProduitsContext _context;
 
-        public EmployeController(ProduitsContext context)
+        public Composition_commandeAchatController(ProduitsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employes
+        // GET: api/Composition_commandeAchats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employe>>> GetDCandidates()
+        public async Task<ActionResult<IEnumerable<Composition_commandeAchat>>> GetDCandidates()
         {
-            return await _context.Employes.ToListAsync();
+            return await _context.Composition_commandeAchats.ToListAsync();
         }
 
-        // GET: api/Employes/5
+        // GET: api/Composition_commandeAchats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employe>> GetDCandidate(int id)
+        public async Task<ActionResult<Composition_commandeAchat>> GetDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Composition_commandeAchats.FindAsync(id);
 
             if (dCandidate == null)
             {
@@ -43,19 +43,19 @@ namespace PharmaPlus.API.UI.Controllers
             return dCandidate;
         }
 
-        // PUT: api/Employes/5
+        // PUT: api/Composition_commandeAchats/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDCandidate(int id, Employe Employe)
+        public async Task<IActionResult> PutDCandidate(int id, Composition_commandeAchat Composition_commandeAchat)
         {
             /* if (id != dCandidate.id)
              {
                  return BadRequest();
              }*/
-            Employe.Id = id;
+            Composition_commandeAchat.CommandeAchatId = id;
 
-            _context.Entry(Employe).State = EntityState.Modified;
+            _context.Entry(Composition_commandeAchat).State = EntityState.Modified;
 
             try
             {
@@ -80,25 +80,25 @@ namespace PharmaPlus.API.UI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Employe>> PostDCandidate(Employe Employe)
+        public async Task<ActionResult<Composition_commandeAchat>> PostDCandidate(Composition_commandeAchat Composition_commandeAchat)
         {
-            _context.Employes.Add(Employe);
+            _context.Composition_commandeAchats.Add(Composition_commandeAchat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDCandidate", new { id = Employe.Id }, Employe);
+            return CreatedAtAction("GetDCandidate", new { id = Composition_commandeAchat.CommandeAchatId }, Composition_commandeAchat);
         }
 
         // DELETE: api/DCandidates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Employe>> DeleteDCandidate(int id)
+        public async Task<ActionResult<Composition_commandeAchat>> DeleteDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Composition_commandeAchats.FindAsync(id);
             if (dCandidate == null)
             {
                 return NotFound();
             }
 
-            _context.Employes.Remove(dCandidate);
+            _context.Composition_commandeAchats.Remove(dCandidate);
             await _context.SaveChangesAsync();
 
             return dCandidate;
@@ -106,7 +106,7 @@ namespace PharmaPlus.API.UI.Controllers
 
         private bool DCandidateExists(int id)
         {
-            return _context.Employes.Any(e => e.Id == id);
+            return _context.Composition_commandeAchats.Any(e => e.CommandeAchatId == id);
         }
 
     }

@@ -12,28 +12,28 @@ namespace PharmaPlus.API.UI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmployeController : ControllerBase
+    public class Composition_commandeController : ControllerBase
     {
 
         private readonly ProduitsContext _context;
 
-        public EmployeController(ProduitsContext context)
+        public Composition_commandeController(ProduitsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employes
+        // GET: api/Composition_commandes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employe>>> GetDCandidates()
+        public async Task<ActionResult<IEnumerable<Composition_commande>>> GetDCandidates()
         {
-            return await _context.Employes.ToListAsync();
+            return await _context.Composition_commandes.ToListAsync();
         }
 
-        // GET: api/Employes/5
+        // GET: api/Composition_commandes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employe>> GetDCandidate(int id)
+        public async Task<ActionResult<Composition_commande>> GetDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Composition_commandes.FindAsync(id);
 
             if (dCandidate == null)
             {
@@ -43,19 +43,19 @@ namespace PharmaPlus.API.UI.Controllers
             return dCandidate;
         }
 
-        // PUT: api/Employes/5
+        // PUT: api/Composition_commandes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDCandidate(int id, Employe Employe)
+        public async Task<IActionResult> PutDCandidate(int id, Composition_commande Composition_commande)
         {
             /* if (id != dCandidate.id)
              {
                  return BadRequest();
              }*/
-            Employe.Id = id;
+            Composition_commande.CommandeId = id;
 
-            _context.Entry(Employe).State = EntityState.Modified;
+            _context.Entry(Composition_commande).State = EntityState.Modified;
 
             try
             {
@@ -80,25 +80,25 @@ namespace PharmaPlus.API.UI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Employe>> PostDCandidate(Employe Employe)
+        public async Task<ActionResult<Composition_commande>> PostDCandidate(Composition_commande Composition_commande)
         {
-            _context.Employes.Add(Employe);
+            _context.Composition_commandes.Add(Composition_commande);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDCandidate", new { id = Employe.Id }, Employe);
+            return CreatedAtAction("GetDCandidate", new { id = Composition_commande.CommandeId }, Composition_commande);
         }
 
         // DELETE: api/DCandidates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Employe>> DeleteDCandidate(int id)
+        public async Task<ActionResult<Composition_commande>> DeleteDCandidate(int id)
         {
-            var dCandidate = await _context.Employes.FindAsync(id);
+            var dCandidate = await _context.Composition_commandes.FindAsync(id);
             if (dCandidate == null)
             {
                 return NotFound();
             }
 
-            _context.Employes.Remove(dCandidate);
+            _context.Composition_commandes.Remove(dCandidate);
             await _context.SaveChangesAsync();
 
             return dCandidate;
@@ -106,7 +106,7 @@ namespace PharmaPlus.API.UI.Controllers
 
         private bool DCandidateExists(int id)
         {
-            return _context.Employes.Any(e => e.Id == id);
+            return _context.Composition_commandes.Any(e => e.CommandeId == id);
         }
 
     }
